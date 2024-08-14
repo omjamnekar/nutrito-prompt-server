@@ -18,7 +18,7 @@ import google.generativeai as gai
 load_dotenv()
 api_key = os.getenv("API_KEY")
 gai.configure(api_key=api_key)
-model = gai.GenerativeModel('gemini-pro-vision')
+model = gai.GenerativeModel('gemini-1.5-flash')
 
 def download_image(image_url:str) -> Image.Image:
     """Download image from URL and return PIL Image."""
