@@ -4,8 +4,7 @@ import json
 import requests
 from io import BytesIO
 from PIL import Image
-from dotenv import load_dotenv
-import ast
+
 
 # Set up system path for package imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
@@ -15,8 +14,9 @@ from prompt.prompt import Prompts
 # Importing and setting up the generative AI model
 import google.generativeai as gai
 
-load_dotenv()
-api_key = os.getenv("API_KEY")
+
+# api_key = os.getenv("GOOGLE_API_KEY")
+api_key= "AIzaSyB9AnUnLAb5pVKPvCwXH8y5qO-JMYX-fW0"
 gai.configure(api_key=api_key)
 model = gai.GenerativeModel('gemini-1.5-flash')
 
@@ -77,8 +77,7 @@ def process_image(image_url:str , prompt_type:str):
 
 
 # Example usage
-
-# print(process_image('https://imagehub-n7dz.onrender.com/IMG-20240617-WA0013-1719234482446.jpg', 'initial_data_text'))    
+# print(process_image('https://m.media-amazon.com/images/I/81ol6TS3WOL._AC_UF1000,1000_QL80_.jpg', 'initial_data_text'))    
 
 # print(process_image('https://imagehub-n7dz.onrender.com/IMG-20240617-WA0013-1719234482446.jpg', 'ratio_specified_text'))    
 
