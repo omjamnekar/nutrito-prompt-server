@@ -6,3 +6,8 @@ numpy==1.26.4  # Only if needed
 pydantic==2.7.4  # Only if needed
 PyJWT==2.9.0
 Pillow==10.3.0
+google-api-python-client==2.133.0
+google-auth==2.30.0
+google-auth-httplib2==0.2.0
+google-auth-oauthlib==1.1.1  # For OAuth 2.0
+google-generativeai==0.7.0  # If you're using Google’s Generative AI
