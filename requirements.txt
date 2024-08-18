@@ -5,3 +5,4 @@ python-dotenv==1.0.1
 numpy==1.26.4  # Only if needed
 pydantic==2.7.4  # Only if needed
 PyJWT==2.9.0
+Pillow==10.3.0
