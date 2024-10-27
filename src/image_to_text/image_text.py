@@ -1,7 +1,8 @@
 import os
 import sys
 import json
-import requests
+from flask import Flask, request,jsonify
+# import requests
 from io import BytesIO
 from PIL import Image
 
@@ -10,7 +11,7 @@ from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 # Importing necessary modules from the image_to_text package
-from prompt.prompt import Prompts
+from prompt.nutrilization_Prompt import Prompts
 # Importing and setting up the generative AI model
 import google.generativeai as gai
 
@@ -20,15 +21,15 @@ api_key= "AIzaSyB9AnUnLAb5pVKPvCwXH8y5qO-JMYX-fW0"
 gai.configure(api_key=api_key)
 model = gai.GenerativeModel('gemini-1.5-flash')
 
-def download_image(image_url:str) -> Image.Image:
-    """Download image from URL and return PIL Image."""
-    try:
-        response = requests.get(image_url)
-        img = Image.open(BytesIO(response.content))
-        return img
-    except Exception as e:
-        print(f"Error downloading image: {e}")
-        raise e
+# def download_image(image_url:str) -> Image.Image:
+#     """Download image from URL and return PIL Image."""
+#     try:
+#         response = requests.get(image_url)
+#         img = Image.open(BytesIO(response.content))
+#         return img
+#     except Exception as e:
+#         print(f"Error downloading image: {e}")
+#         raise e
 
 def generate_content(image:Image, prompt_type:str):
    
@@ -37,13 +38,13 @@ def generate_content(image:Image, prompt_type:str):
    
     return generated_content.text
 
-def process_image(image_url:str , prompt_type:str):
+def process_image(image:Image, prompt_type:str):
     
     """Main function to process the image and print the results."""
-    img:Image = download_image(image_url)
+    # img:Image = download_image(image_url)
 
     if prompt_type == "initial_data_text":
-        initial_data_text = generate_content(img, 'initialJSONdataFramePrompt')
+        initial_data_text = generate_content(image, 'initialJSONdataFramePrompt')
         initial_data_text = initial_data_text.strip()  # Remove leading/trailing whitespace
         print(initial_data_text)
         initial_data_text = json.loads(initial_data_text)
@@ -52,7 +53,7 @@ def process_image(image_url:str , prompt_type:str):
         }
     elif prompt_type == "ratio_specified_text":
           
-       ratio_specified_text =  generate_content(img, 'ratioSpecifiedPrompt')
+       ratio_specified_text =  generate_content(image, 'ratioSpecifiedPrompt')
        print(ratio_specified_text)
        ratio_specified_text = json.loads(ratio_specified_text)
         
@@ -61,14 +62,14 @@ def process_image(image_url:str , prompt_type:str):
             }
         
     elif prompt_type == "health_consideration_text":
-        healthConsideration_text =  generate_content(img, 'healthPrompt')
+        healthConsideration_text =  generate_content(image, 'healthPrompt')
         
         healthConsideration_text = json.loads(healthConsideration_text)
         return {
              'healthConsideration': healthConsideration_text
         }
     elif prompt_type == "conclusion_text":
-        conclusion_text =  generate_content(img, 'otherPrompt')
+        conclusion_text =  generate_content(image, 'otherPrompt')
         conclusion_text = json.loads(conclusion_text)
         return {
                'conclusionData': conclusion_text
