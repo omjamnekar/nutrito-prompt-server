@@ -57,7 +57,13 @@ def token_required(f):
 
 
 
+@app.route('/')
+def hello():
+    return 'Hello, World!'
 
+@app.route(Prompt_Url.check_Server, methods=['GET'])
+def onLoad():
+    return 'Server is working perfectly!'
 
 
 @app.route(Prompt_Url.login, methods=['POST'])
