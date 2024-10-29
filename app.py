@@ -16,10 +16,9 @@ from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from src.rest_api.errors.error_text import ErrorForms, ErrorNumber
-from src.prompt.prompt_url import Prompt_Url
 from src.image_to_text.image_text import process_image
 from src.rest_api.mongo import validate_user  
-
+from src.network.rest_urls import Prompt_Url
 
 app = Flask(__name__)
 
@@ -84,7 +83,6 @@ def login():
         return jsonify({'token': token})
     
     return jsonify({'message': ErrorForms.envalid_credential}), ErrorNumber.unauthorized
-
 
 
 
@@ -164,8 +162,6 @@ def upload_health_image(current_user):
 
 
 
-
-
 @app.route(Prompt_Url.conclusion_prompt, methods=['POST'])
 @token_required
 def upload_conclusion_image(current_user):
@@ -183,7 +179,12 @@ def upload_conclusion_image(current_user):
     except Exception as e:
         return jsonify({'error': str(e)})
 
+
+
+
+
 if __name__ == '__main__':
+
     app.run()
 
 
