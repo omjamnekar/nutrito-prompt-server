@@ -13,7 +13,8 @@ from prompt.nutrilization_Prompt import Prompts
 import google.generativeai as gai
 
 
-api_key = os.getenv("GOOGLE_API_KEY")
+# api_key = os.getenv("GOOGLE_API_KEY")
+api_key ="AIzaSyCwNmm1UFZ1c1JYh2onPQ1tM9dALgDEXPE"
 gai.configure(api_key=api_key)
 model = gai.GenerativeModel('gemini-1.5-flash')
 
