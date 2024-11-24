@@ -1,57 +1,45 @@
 class Prompts:
 
 
-    _initialJSONdataFramePrompt ="""
-    Collect all data available in the image regarding the product composition and its quantities. Provide the data in JSON format with the following consistent keys. Do not include any extraneous text or explanations, only the JSON formatted data as specified below and dont add ```json```:
+    _initialJSONdataFramePrompt = """
+            Provide the product's composition and quantities as structured JSON with the following keys. Do not include any additional text or explanations, only the JSON and dont mention ```json ```` :
 
-{
-    "allergenInformation": " // allergen information //",
-    "barcode": " // barcode //",
-    "certifications": [
-        "FSSAI"
-    ],
-    "countryOfOrigin": " // country of origin //",
-    "dietaryInformation": " // dietary information //",
-    "expiryDate": " // expiry date //",
-    "ingredients": [
-        {
-            "name": "wheat flour",
-            "quantity": "70g"
-        },
-        { 
-            "name": "palm oil",
-            "quantity": "13g"
-        }
-    ],
-    "isAddictive": in true or false format,
-    "price": " // price of the product //",
-    "manufacturer": //manufacturer datails in dictionary//,
-    "name": //product name//,
-    "nutritionalInformation": {
-        "calcium": "180 mg",
-        "carbohydrates": "59.1 g",
-        "cholesterol": "0 mg",
-        "dietary fiber": "3.6 g"
-        // add more keys as per the image //
-    },
-    "productType": " // product type //",
-    "servingSize": " // serving size in any measure value e.g cup, spoon , no of chips //",
-    "storageInstructions": " // storage instructions //",
-    "usageInstructions": " // usage instructions //",
-    "weight": " // weight of the product //",
-    "warnings": " // warnings //"
-    "additionalInformation": " // additional information //"
-    "link": " // link to the product //"
-    "website": " // website of the product //"
+            {
+                "allergenInformation": " // allergen information //",
+                "barcode": " // barcode //",
+                "certifications": ["FSSAI"],
+                "countryOfOrigin": " // country of origin //",
+                "dietaryInformation": " // dietary information //",
+                "expiryDate": " // expiry date //",
+                "ingredients": [
+                    {"name": "wheat flour", "quantity": "70g"},
+                    {"name": "palm oil", "quantity": "13g"}
+                ],
+                "isAddictive": true,
+                "price": " // price of the product //",
+                "manufacturer": {"name": " // manufacturer name //", "address": " // address //"},
+                "name": " // product name //",
+                "nutritionalInformation": {
+                    "calcium": "180 mg",
+                    "carbohydrates": "59.1 g",
+                    "cholesterol": "0 mg",
+                    "dietary fiber": "3.6 g"
+                },
+                "productType": " // product type //",
+                "servingSize": " // serving size //",
+                "storageInstructions": " // storage instructions //",
+                "usageInstructions": " // usage instructions //",
+                "weight": " // weight //",
+                "warnings": " // warnings //",
+                "additionalInformation": " // additional information //",
+                "link": " // product link //",
+                "website": " // product website //"
+            }
+            """
 
-    }
-
-Take the time to pull the maximum amount of data. Ensure that the keys remain consistent in subsequent runs to prevent inconsistencies.
-        """
     
     _ratioSpecifiedPrompt = '''
-    I have data for a product, and I need a nutritional analysis of this data to determine if it is healthy to eat. Provide the data in JSON format with the following consistent keys and dont write anything other then format not even ```JSON ``` 
-        this is the format:
+    I need a nutritional analysis of this data to determine if it is healthy to eat. Provide the data in pure JSON format no other text like ```json (important), this is the format:
      {
    
         "ingredientAnalysis": [
@@ -93,16 +81,15 @@ Take the time to pull the maximum amount of data. Ensure that the keys remain co
      '''
     
     _otherPrompt = '''
-    Collect all data available in the image regarding the product composition and its quantities. Provide the data in JSON format with the following consistent keys: dont write anything other then format not even ```JSON ```
-        this is the format:
-    {
-    
-        "allergenInformation": "// //",
-        "conclusion": " // provide me your conclusion for this app as nutritioniest or healthcarer //",
-        "overallHealthRating": //ratio number between 1-10 on the bases of you opinion about this product as per human health consideration//,
-        "recommendations": " //any recommendations that leads to buy the product or not if product is unhealthy for human //",
-        "servingSize": " // serving size in any measure as per product to give idea for how long product will long last//",   
-    } 
+   Collect all data available in the image regarding the product composition and its quantities. Provide the data in **strict JSON format** with the following keys and no additional text:
+
+{
+    "allergenInformation": "// Information about allergens //",
+    "conclusion": "// Your conclusion about the product from a nutritional perspective //",
+    "overallHealthRating": "// A number between 1-10 indicating healthiness //",
+    "recommendations": "// Buy or not based on health concerns //",
+    "servingSize": "// Quantity per serving size in appropriate units //"
+}
     '''
 
     _healthPrompt = '''

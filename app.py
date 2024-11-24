@@ -55,7 +55,6 @@ def token_required(f):
 
 
 
-
 @app.route('/')
 def hello():
     return 'Hello, World!'
@@ -63,6 +62,7 @@ def hello():
 @app.route(Prompt_Url.check_Server, methods=['GET'])
 def onLoad():
     return 'Server is working perfectly!'
+
 
 
 @app.route(Prompt_Url.login, methods=['POST'])
@@ -182,6 +182,8 @@ def upload_conclusion_image(current_user):
 
 
 
+if __name__ == '__main__':
+    app.run(debug=True)
 
 if __name__ == '__main__':
 
