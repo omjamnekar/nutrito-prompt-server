@@ -85,8 +85,8 @@ def login():
     return jsonify({'message': ErrorForms.envalid_credential}), ErrorNumber.unauthorized
 
 
- 
-
+#  //nutrition 
+#/////////////////////////////////////////////////////////////////
 
 @app.route(Prompt_Url.initial_prompt, methods=['POST'])
 @token_required
@@ -181,12 +181,10 @@ def upload_conclusion_image(current_user):
 
 
 
+#  //compare feature 
+#/////////////////////////////////////////////////////////////////
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-if __name__ == '__main__':
-
-    app.run()
-
 
 
