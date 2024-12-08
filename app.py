@@ -184,8 +184,10 @@ def upload_conclusion_image(current_user):
 #  //compare feature 
 #/////////////////////////////////////////////////////////////////
 
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
 
-s
