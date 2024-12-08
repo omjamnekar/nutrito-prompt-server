@@ -9,14 +9,14 @@ from dotenv import load_dotenv
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from prompt.nutrilization_Prompt import Prompts
+from prompts.nutrilization_Prompt import Prompts
 import google.generativeai as gai
 load_dotenv()
 
 
 
 api_key = os.getenv("GOOGLE_API_KEY")
-# api_key ="AIzaSyCwNmm1UFZ1c1JYh2onPQ1tM9dALgDEXPE"
+
 gai.configure(api_key=api_key)
 model = gai.GenerativeModel('gemini-1.5-flash')
 

@@ -15,10 +15,10 @@ from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from src.rest_api.errors.error_text import ErrorForms, ErrorNumber
+from src.database.errors.error_text import ErrorForms, ErrorNumber
 from src.image_to_text.image_text import process_image
-from src.rest_api.mongo import validate_user  
-from src.network.rest_urls import Prompt_Url
+from src.database.mongo import validate_user  
+from src.routes.rest_urls import Prompt_Url
 
 app = Flask(__name__)
 
@@ -85,8 +85,7 @@ def login():
     return jsonify({'message': ErrorForms.envalid_credential}), ErrorNumber.unauthorized
 
 
-
-
+ 
 
 
 @app.route(Prompt_Url.initial_prompt, methods=['POST'])
