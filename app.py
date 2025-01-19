@@ -2,23 +2,20 @@ import sys
 import os
 from io import BytesIO
 
-import datetime
 from functools import wraps
 from flask import Flask, request, jsonify
 from PIL import Image
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from src.database.errors.error_text import ErrorForms, ErrorNumber
 from src.image_to_text.image_text import process_image
-from src.database.mongo import validate_user  
 from src.routes.rest_urls import Prompt_Url
+from src.image_to_text.compare import comapare_process_image
+
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv("APP_CONFIG_KEY")
-
-
 
 
 @app.route('/')
@@ -35,7 +32,6 @@ def onLoad():
 #/////////////////////////////////////////////////////////////////
 
 @app.route(Prompt_Url.initial_prompt, methods=['POST'])
-# @token_required
 def upload_initial_image():
     
     try:
@@ -56,12 +52,12 @@ def upload_initial_image():
 
 
 
-
+# ratio
+#//////////////////////////////////////////////////
 
 
 
 @app.route(Prompt_Url.ratio_prompt, methods=['POST'])
-# @token_required
 def upload_ratio_image():
     try:
         if 'image' not in request.files:
@@ -80,11 +76,11 @@ def upload_ratio_image():
 
 
 
-
+#health 
+#/////////////////////////////////////////////////
 
 
 @app.route(Prompt_Url.health_prompt, methods=['POST'])
-# @token_required
 def upload_health_image():
     try:
         if 'image' not in request.files:
@@ -103,12 +99,12 @@ def upload_health_image():
 
 
 
-
+#conclusion
+#////////////////////////////////////////////////
 
 
 
 @app.route(Prompt_Url.conclusion_prompt, methods=['POST'])
-# @token_required
 def upload_conclusion_image():
     try:
         if 'image' not in request.files:
@@ -124,6 +120,29 @@ def upload_conclusion_image():
     except Exception as e:
         return jsonify({'error': str(e)})
 
+
+
+
+@app.route(Prompt_Url.com_compare_product, methods=['POST'])
+def compare_product_log():
+    try:
+        if 'image1' not in request.files:
+            return jsonify({"error": "No image1 file found in the request"}), 400
+        if 'image2' not in request.files:
+            return jsonify({"error": "No image2s file found in the request"}), 400
+
+        image_file1 = request.files['image1']
+
+        image_file2= request.files['image2']
+        image1 = Image.open(BytesIO(image_file1.read()))
+        image2 =Image.open(BytesIO(image_file2.read()))
+        image_to_text_data = comapare_process_image(image1, image2)
+        return jsonify(image_to_text_data)
+    
+    except ValueError as ve:
+        return jsonify({'errorstr': str(ve)}), 400  # Return the error mes
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 
 
