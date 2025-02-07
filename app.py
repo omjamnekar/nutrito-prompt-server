@@ -5,7 +5,6 @@ from io import BytesIO
 from functools import wraps
 from flask import Flask, request, jsonify
 from PIL import Image
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from src.image_to_text.image_text import process_image
