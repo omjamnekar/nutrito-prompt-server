@@ -8,7 +8,7 @@ class Prompts:
                 "allergenInformation": " // allergen information //",
                 "barcode": " // barcode //",
                 "certifications": ["FSSAI"],
-                "countryOfOrigin": " // country of origin //",
+                "countryOfOrigin": " // country of origin //{this product or food can be of any reigion or place try findout where this product or food belong to}",
                 "dietaryInformation": " // dietary information //",
                 "expiryDate": " // expiry date //",
                 "ingredients": [
@@ -18,7 +18,7 @@ class Prompts:
                 "isAddictive": true,
                 "price": " // price of the product //",
                 "manufacturer": {"name": " // manufacturer name //", "address": " // address //"},
-                "name": " // product name //",
+                "name": " // product name {it can be street food which has no label predict it on the bases of its property} //",
                 "nutritionalInformation": {
                     "calcium": "180 mg",
                     "carbohydrates": "59.1 g",
