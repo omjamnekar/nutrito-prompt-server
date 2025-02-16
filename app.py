@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
+from src.gen.global_model import genCall
 from src.gen.local_model import find_alternative
 from src.gen.image_text import process_image
 from src.routes.rest_urls import Prompt_Url
@@ -163,6 +164,24 @@ def suggest_product():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"error": str(e)}), 500
+    
+
+@app.route("/api/generateAlternative", methods=["POST"])
+def generate():
+ try:
+    data =request.json
+    if not data or "product" not in data or "data" not in data:
+            return jsonify({"error": "Missing 'product' or 'data' field"}), 400
+
+    print(data["product"])
+    response= genCall(data["product"])
+
+    return response
+
+ except Exception as e:
+    print(f"Error: {e}")
+    return jsonify({"error": str(e)}), 500
+
 
 
 if __name__ == '__main__':
