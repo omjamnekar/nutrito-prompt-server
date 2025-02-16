@@ -24,5 +24,6 @@ class Prompt_Url:
 
     #alternative products
     alternativeSuggestion="/api/suggestions"
+    imageAlternativeSuggestion ="/api/imageSuggestion"
 
 

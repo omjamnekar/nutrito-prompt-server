@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
+from src.gen.alternative import imageAlternative
 from src.gen.global_model import genCall
 from src.gen.local_model import find_alternative
 from src.gen.image_text import process_image
@@ -164,7 +165,29 @@ def suggest_product():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"error": str(e)}), 500
+
+
+
+@app.route(Prompt_Url.imageAlternativeSuggestion, methods=["POST"])
+def imageSuggest_product():
+    try:
+        if 'image' not in request.files:
+            return jsonify({"error": "No image file found in the request"}), 400
+
+        image_file = request.files['image']
+        image = Image.open(BytesIO(image_file.read()))
+       
+        alternative = imageAlternative(image=image)
+
+        return jsonify({"alternative": alternative})
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
     
+
+
+
 
 @app.route("/api/generateAlternative", methods=["POST"])
 def generate():
