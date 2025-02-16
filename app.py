@@ -7,9 +7,11 @@ from flask import Flask, request, jsonify
 from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
-from src.image_to_text.image_text import process_image
+from src.gen.local_model import find_alternative
+from src.gen.image_text import process_image
 from src.routes.rest_urls import Prompt_Url
-from src.image_to_text.compare import comapare_process_image
+from src.gen.compare import comapare_process_image
+
 
 
 app = Flask(__name__)
@@ -120,7 +122,7 @@ def upload_conclusion_image():
         return jsonify({'error': str(e)})
 
 
-
+# compare products
 
 @app.route(Prompt_Url.com_compare_product, methods=['POST'])
 def compare_product_log():
@@ -145,10 +147,22 @@ def compare_product_log():
 
 
 
-#  //compare feature 
-#/////////////////////////////////////////////////////////////////
+@app.route(Prompt_Url.alternativeSuggestion, methods=["POST"])
+def suggest_product():
+    try:
+        data = request.json
+        if not data or "product" not in data or "data" not in data:
+            return jsonify({"error": "Missing 'product' or 'data' field"}), 400
 
+        product_name = data["product"].lower() if isinstance(data["product"], str) else ""
+        product_description = data["data"].lower() if isinstance(data["data"], str) else ""
+        alternative = find_alternative(product_name, product_description)
 
+        return jsonify({"alternative": alternative})
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
