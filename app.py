@@ -1,3 +1,4 @@
+import asyncio
 import sys
 import os
 from io import BytesIO
@@ -7,6 +8,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
+from src.gen.searched import categoriedCall
 from src.gen.alternative import imageAlternative
 from src.gen.global_model import genCall
 from src.gen.local_model import find_alternative
@@ -56,7 +58,7 @@ def upload_initial_image():
 
 
 # ratio
-#//////////////////////////////////////////////////
+#////////////////////////////////////////////////////////////////
 
 
 
@@ -175,9 +177,9 @@ def imageSuggest_product():
             return jsonify({"error": "No image file found in the request"}), 400
 
         image_file = request.files['image']
-        image = Image.open(BytesIO(image_file.read()))
+        imagebeta = Image.open(BytesIO(image_file.read()))
        
-        alternative = imageAlternative(image=image)
+        alternative = imageAlternative(image=imagebeta)
 
         return jsonify({"alternative": alternative})
 
@@ -204,6 +206,28 @@ def generate():
  except Exception as e:
     print(f"Error: {e}")
     return jsonify({"error": str(e)}), 500
+
+
+
+# /////////////////////////////
+
+@app.route("/api/catergoriedSearch", methods=["POST"])
+def filterDataSearch():
+ try:
+    data =request.json
+    if not data or "filterData" not in data or "option" not in data:
+            return jsonify({"error": "Missing 'product' or 'data' field"}), 400
+
+    response= asyncio.run(categoriedCall(filterData=data["filterData"],nutrient=data["option"]))
+
+    return response
+
+ except Exception as e:
+    print(f"Error: {e}")
+    return jsonify({"error": str(e)}), 500
+
+
+
 
 
 
