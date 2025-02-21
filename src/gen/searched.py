@@ -4,7 +4,7 @@ import google.generativeai as gai
 import asyncio
 import ast
 
-from src.gen.google_search import googleSearchImage
+from gen.google_search import googleSearchImage
 api_key = os.getenv("GOOGLE_API_KEY")
 
 gai.configure(api_key=api_key)
