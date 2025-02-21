@@ -3,7 +3,6 @@ import sys
 import json
 from flask import Flask, request,jsonify
 # import requests
-from io import BytesIO
 from PIL import Image
 from dotenv import load_dotenv
 
