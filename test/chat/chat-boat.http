@@ -1,0 +1,26 @@
+### Start Session
+POST http://localhost:5000/start_session
+Content-Type: application/json
+
+{}
+
+###
+
+### Send Message
+POST http://localhost:5000/send_message
+Content-Type: application/json
+
+{
+  "session_id": "4291b222-9a4d-4d8d-bd88-2a29ac75da0f",
+  "message": "can you tell my name"
+}
+
+###
+
+### End Session
+POST http://localhost:5000/end_session
+Content-Type: application/json
+
+{
+  "session_id": "4291b222-9a4d-4d8d-bd88-2a29ac75da0f"
+}

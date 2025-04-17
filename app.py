@@ -2,12 +2,12 @@ import asyncio
 import sys
 import os
 from io import BytesIO
-
 from functools import wraps
 from flask import Flask, request, jsonify
 from PIL import Image
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
+from src.gen.chat import chat_bp
 from src.gen.searched import categoriedCall
 from src.gen.alternative import imageAlternative
 from src.gen.global_model import genCall
@@ -228,6 +228,7 @@ def filterDataSearch():
 
 
 
+app.register_blueprint(chat_bp)
 
 
 
