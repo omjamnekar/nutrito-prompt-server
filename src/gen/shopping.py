@@ -28,7 +28,7 @@ def get_shopping_list(user_need)->str:
 
     ### Shopping List (only product names in json no other text before and after it):
     {{
-        "message": "provide message for your query and or any suggestion for user any 6 to 8",
+        "message": "provide message for your query and or any suggestion for user any 13 to 20",
         "productname": ["provide data over here"]
     }}
 
