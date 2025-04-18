@@ -1,11 +1,11 @@
-import os
-import sys
 import json
 from flask import Flask, request, jsonify
 from io import BytesIO
 from PIL import Image
 from dotenv import load_dotenv
 
+import os
+import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 
 from prompts.nutrilization_Prompt import Prompts

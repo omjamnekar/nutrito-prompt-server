@@ -1,8 +1,12 @@
-import os
+import os,sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 import time
 import uuid
 import google.generativeai as genai
 from src.util.session_store import sessions, session_timestamps
+
+
+
 
 # Init Gemini
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])

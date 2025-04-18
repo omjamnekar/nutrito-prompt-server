@@ -1,5 +1,11 @@
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)))
 from flask import Blueprint, request, jsonify
 from src.gen.chat_service import start_chat_session, send_user_message, end_chat_session
+
+
+
 
 chat_bp = Blueprint("chat", __name__)
 

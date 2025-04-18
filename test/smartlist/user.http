@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/smartlist
+Content-Type: application/json
+
+
+{
+  "message": "diet"
+}

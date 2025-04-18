@@ -15,6 +15,7 @@ from src.gen.local_model import find_alternative
 from src.gen.image_text import process_image
 from src.routes.rest_urls import Prompt_Url
 from src.gen.compare import comapare_process_image
+from src.gen.shopping import get_shopping_list
 
 
 
@@ -228,9 +229,26 @@ def filterDataSearch():
 
 
 
+# chatboat
 app.register_blueprint(chat_bp)
 
+#shoppinglist
 
+@app.route('/api/smartlist', methods=['POST'])
+def smartlist():
+    data = request.get_json()
+    user_message = data.get("message", "")
+
+    if not user_message:
+        return jsonify({"error": "Message is required"}), 400
+
+    try:
+        result = get_shopping_list(user_message)
+        return jsonify({"result": result}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
