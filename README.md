@@ -220,7 +220,7 @@ Contributions are welcome!
 ##  Author
 
 **Om Jamnekar**  
-📧 omjamnekar877@gmail.com
+📧 omjjamnekar@gmail.com
 
 ---
 
