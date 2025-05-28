@@ -1,39 +1,59 @@
-# 🥦 Nutrito Prompt Server
+#  Nutrito Prompt Server
 
 **Nutrito Prompt Server** is a Python-based Flask backend that processes food-related images and data to provide nutritional analysis, ingredient evaluation, product comparisons, alternative suggestions, and smart grocery lists. This backend is a core component of the broader *Nutrito* ecosystem focused on promoting healthier lifestyle choices through intelligent food analysis.
 
 ---
 
-## 📌 Table of Contents
 
-- [✅ Features](#✅-features)
-- [🧰 Tech Stack](#🧰-tech-stack)
-- [📁 Project Structure](#📁-project-structure)
-- [🛠️ Installation](#🛠️-installation)
-- [🔐 Environment Variables](#🔐-environment-variables)
-- [🚀 Running the Server](#🚀-running-the-server)
-- [📡 API Endpoints](#📡-api-endpoints)
-- [🧯 Error Handling](#🧯-error-handling)
-- [🤝 Contributing](#🤝-contributing)
-- [📄 License](#📄-license)
-- [👤 Author](#👤-author)
-- [📢 Acknowledgements](#📢-acknowledgements)
+##  Table of Contents
 
----
-
-## ✅ Features
-
-- 🔍 Extract text and ingredients from food packaging.
-- 📊 Perform nutritional and ratio-based analysis.
-- 🧠 Analyze health implications based on ingredients.
-- 📸 Accept image inputs for intelligent comparison.
-- 💡 Suggest alternative healthier food products.
-- 🌍 Global and local ML-based product suggestions.
-- 🧾 Generate smart shopping lists from prompts.
+- [ Features](#✅-features)
+- [ Tech Stack](#🧰-tech-stack)
+- [ Project Structure](#📁-project-structure)
+- [ Installation](#🛠️-installation)
+- [ Environment Variables](#🔐-environment-variables)
+- [ Running the Server](#🚀-running-the-server)
+- [ API Endpoints](#📡-api-endpoints)
+- [ Error Handling](#🧯-error-handling)
+- [ Contributing](#🤝-contributing)
+- [ License](#📄-license)
+- [ Author](#👤-author)
+- [ Acknowledgements](#📢-acknowledgements)
 
 ---
 
-## 🧰 Tech Stack
+## API Call Reference Table
+
+| Endpoint                       | Method | Input Type         | Parameters / Fields                              | Description                                      |
+|---------------------------------|--------|--------------------|--------------------------------------------------|--------------------------------------------------|
+| `/api/checkServer`             | GET    | -                  | -                                                | Server health check                              |
+| `/api/initialPrompt`           | POST   | Form-Data          | `image`                                          | Initial prompt analysis from image               |
+| `/api/ratioPrompt`             | POST   | Form-Data          | `image`                                          | Ratio-based nutritional analysis                 |
+| `/api/healthPrompt`            | POST   | Form-Data          | `image`                                          | Health consideration analysis                    |
+| `/api/conclusionPrompt`        | POST   | Form-Data          | `image`                                          | Conclusion analysis from image                   |
+| `/api/compareProducts`         | POST   | Form-Data          | `image1`, `image2`                               | Compare two products by images                   |
+| `/api/getAlternative`          | POST   | JSON               | `product`, `data`                                | Suggest alternative products (text)              |
+| `/api/imageAlternative`        | POST   | Form-Data          | `image`                                          | Suggest alternative products (image)             |
+| `/api/generateAlternative`     | POST   | JSON               | `product`, `data`                                | Global product alternatives                      |
+| `/api/catergoriedSearch`       | POST   | JSON               | `filterData`, `option`                           | Categorized search by nutrient                   |
+| `/api/smartlist`               | POST   | JSON               | `message`                                        | Generate smart shopping list                     |
+| `/api/chat`                    | POST   | JSON               | (see chat blueprint)                             | Chatbot endpoint                                 |
+
+**Note:** All image inputs should be sent as multipart/form-data. JSON fields must be provided in the request body as shown in the endpoint documentation.
+
+##  Features
+
+-  Extract text and ingredients from food packaging.
+-  Perform nutritional and ratio-based analysis.
+-  Analyze health implications based on ingredients.
+-  Accept image inputs for intelligent comparison.
+-  Suggest alternative healthier food products.
+-  Global and local ML-based product suggestions.
+-  Generate smart shopping lists from prompts.
+
+---
+
+##  Tech Stack
 
 - **Language**: Python 3.8+
 - **Framework**: Flask
@@ -44,7 +64,7 @@
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 nutrito-prompt-server/
@@ -66,7 +86,7 @@ nutrito-prompt-server/
 
 ---
 
-## 🛠️ Installation
+##  Installation
 
 ```bash
 # Clone the repository
@@ -83,7 +103,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file in the root directory with the following:
 
@@ -93,7 +113,7 @@ APP_CONFIG_KEY=your_secret_key
 
 ---
 
-## 🚀 Running the Server
+##  Running the Server
 
 ```bash
 python app.py
@@ -103,32 +123,32 @@ Server will run on `http://127.0.0.1:5000/` by default.
 
 ---
 
-## 📡 API Endpoints
+##  API Endpoints
 
-### 🩺 Server Health Check
+###  Server Health Check
 - **GET** `/api/checkServer`
 
-### 📷 Initial Prompt Analysis
+###  Initial Prompt Analysis
 - **POST** `/api/initialPrompt`
 - `Form-Data`: `image`
 
-### ⚖️ Ratio Analysis
+###  Ratio Analysis
 - **POST** `/api/ratioPrompt`
 - `Form-Data`: `image`
 
-### ❤️ Health Consideration
+###  Health Consideration
 - **POST** `/api/healthPrompt`
 - `Form-Data`: `image`
 
-### 🧾 Conclusion Analysis
+###  Conclusion Analysis
 - **POST** `/api/conclusionPrompt`
 - `Form-Data`: `image`
 
-### ⚖️ Compare Products
+###  Compare Products
 - **POST** `/api/compareProducts`
 - `Form-Data`: `image1`, `image2`
 
-### 🔄 Alternative Suggestions (Text)
+###  Alternative Suggestions (Text)
 - **POST** `/api/getAlternative`
 ```json
 {
@@ -137,11 +157,11 @@ Server will run on `http://127.0.0.1:5000/` by default.
 }
 ```
 
-### 🖼️ Alternative Suggestions (Image)
+###  Alternative Suggestions (Image)
 - **POST** `/api/imageAlternative`
 - `Form-Data`: `image`
 
-### 🌍 Global Product Alternatives
+###  Global Product Alternatives
 - **POST** `/api/generateAlternative`
 ```json
 {
@@ -150,7 +170,7 @@ Server will run on `http://127.0.0.1:5000/` by default.
 }
 ```
 
-### 🧠 Categorized Search
+### Categorized Search
 - **POST** `/api/catergoriedSearch`
 ```json
 {
@@ -159,7 +179,7 @@ Server will run on `http://127.0.0.1:5000/` by default.
 }
 ```
 
-### 🛍️ Smart Shopping List
+###  Smart Shopping List
 - **POST** `/api/smartlist`
 ```json
 {
@@ -169,7 +189,7 @@ Server will run on `http://127.0.0.1:5000/` by default.
 
 ---
 
-## 🧯 Error Handling
+##  Error Handling
 
 - **400 Bad Request** – Missing or invalid inputs.
 - **500 Internal Server Error** – Server-side failure.
@@ -183,7 +203,7 @@ Example response:
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome!
 
@@ -197,14 +217,14 @@ Contributions are welcome!
 
 ---
 
-## 👤 Author
+##  Author
 
 **Om Jamnekar**  
 📧 omjamnekar877@gmail.com
 
 ---
 
-## 📢 Acknowledgements
+## Acknowledgements
 
 - Flask – Web server framework
 - Pillow – Image processing
